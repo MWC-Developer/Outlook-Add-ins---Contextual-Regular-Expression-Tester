@@ -1,0 +1,60 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Office Add-ins Smart Alerts Sample</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <script type="text/javascript" src="MessageRead.js"></script>
+
+    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
+    <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
+
+    <!-- Template styles -->
+    <link href="MessageRead.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="ms-font-m ms-welcome ms-Fabric" style="background-color: white;">
+    <header class="ms-welcome__header ms-bgColor-neutralLighter">
+        <img width="90" height="90" src="images/RegExLogoDemo128.png" alt="Outlook Contextual Add-in Sample" title="Outlook Contextual Add-in Sample" />
+        <h2>Contextual Add-in Sample</h2>
+    </header>
+    <section id="sideload-msg" class="ms-welcome__main">
+        <h3>This message will disappear once the add-in is loaded.  This page will not work in a browser outside of Outlook.</h3>
+    </section>
+    <main id="app-body" class="ms-welcome__main" style="display: none;">
+        <div style="margin-bottom: 10px;">
+            <label style="margin-right: 15px;">
+                <input type="radio" name="bodyFormat" value="text" checked> Plain Text
+            </label>
+            <label>
+                <input type="radio" name="bodyFormat" value="html"> HTML
+            </label>
+        </div>
+        <button id="getMessageBody" class="ms-Button">
+            <span class="ms-Button-label">Retrieve message body</span>
+        </button>
+        <div style="margin-top: 15px; margin-bottom: 10px;">
+            <label for="regexInput">Regular Expression:</label>
+            <input type="text" id="regexInput" style="width: 100%; margin-top: 5px; padding: 5px;" placeholder="Enter regex pattern (e.g., \b[A-Z]{3}\d{6}\b)"/>
+        </div>
+        <button id="testRegex" class="ms-Button" disabled>
+            <span class="ms-Button-label">Test RegEx</span>
+        </button>
+        <div id="regexResultsSection" style="display: none;">
+            <h3>RegEx Results:</h3>
+            <div id="regexResultsContainer"></div>
+        </div>
+        <h3>Message body:</h3>
+        <div id="messageBodyContainer"></div>
+    </main>
+</body>
+
+</html>
