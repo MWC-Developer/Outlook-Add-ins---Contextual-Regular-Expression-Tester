@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
+ <Id>d538304a-57c3-4446-bfc1-a5bb6acc42f1</Id>
+ <Version>1.0.0.3</Version>
+ <ProviderName>Contoso</ProviderName>
+ <DefaultLocale>en-US</DefaultLocale>
+ <DisplayName DefaultValue="Contextual Add-in Sample (HTML)" />
+ <Description DefaultValue="Add-in to test contextual regular expression matches."/>
+  <IconUrl DefaultValue="~remoteUrl/RegExSample/images/RegExLogoDemo32.png"/>
+  <HighResolutionIconUrl DefaultValue="~remoteUrl/RegExSample/images/RegExLogoDemo64.png"/>
+  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+ <Hosts>
+  <Host Name="Mailbox" />
+ </Hosts>
+ <Requirements>
+  <Sets>
+   <Set Name="Mailbox" MinVersion="1.5" />
+  </Sets>
+ </Requirements>
+ <FormSettings>
+  <Form xsi:type="ItemRead">
+   <DesktopSettings>
+    <SourceLocation DefaultValue="~remoteUrl/RegExSample/MessageRead.html"/>
+    <RequestedHeight>250</RequestedHeight>
+   </DesktopSettings>
+  </Form>
+ </FormSettings>
+ <Permissions>ReadWriteItem</Permissions>
+ <Rule xsi:type="RuleCollection" Mode="Or">
+  <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read" />
+ </Rule>
+ <DisableEntityHighlighting>false</DisableEntityHighlighting>
+ <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+   <Requirements>
+    <bt:Sets DefaultMinVersion="1.5">
+     <bt:Set Name="Mailbox" />
+    </bt:Sets>
+   </Requirements>
+   <Hosts>
+    <Host xsi:type="MailHost">
+	  <DesktopFormFactor>
+      <FunctionFile resid="functionFile" />
+      <!-- DetectedEntity -->
+      <ExtensionPoint xsi:type="DetectedEntity">
+       <Label resid="contextLabel" />
+       <SourceLocation resid="detectedEntityURL" />
+       <Rule xsi:type="RuleCollection" Mode="And">
+        <Rule xsi:type="ItemIs" ItemType="Message" />
+        <Rule xsi:type="RuleCollection" Mode="Or">
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule1" RegExValue="\bS[2-3]\d{9}\b" PropertyName="BodyAsHTML"/>
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule2" RegExValue="\bB[A-Z]{3}\d{6}\b" PropertyName="BodyAsHTML"/>
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule3" RegExValue="\b([A-Z]\d{6}|[A-Z]\d{6}OFR|\d[A-Z]{2}\d{4}|\d[A-Z]{2}\d{4}OFR|[A-Z]{4}\d{5}|[A-Z]{3}\d{5}L|9[A-Z]\d{5}|9[A-Z]\d{5}OFR|DZ[A-Z]\d{6}|\d{6}Z|SD\d{7})\b" PropertyName="BodyAsHTML"/>
+        </Rule>
+       </Rule>
+      </ExtensionPoint>
+       <!-- Message read TaskPane -->
+            <ExtensionPoint xsi:type="MessageReadCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="msgReadGroup">
+                  <Label resid="GroupLabel"/>
+                  <Control xsi:type="Button" id="msgReadOpenPaneButton">
+                    <Label resid="TaskpaneButton.Label"/>
+                    <Supertip>
+                      <Title resid="TaskpaneButton.Label"/>
+                      <Description resid="TaskpaneButton.Tooltip"/>
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="icon16"/>
+                      <bt:Image size="32" resid="icon32"/>
+                      <bt:Image size="80" resid="icon80"/>
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="Taskpane.Url"/>
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+     </DesktopFormFactor>
+    </Host>
+   </Hosts>
+
+   <Resources>
+    <bt:Images>
+     <bt:Image id="icon16" DefaultValue="~remoteUrl/RegExSample/images/RegExLogoDemo16.png"/>
+     <bt:Image id="icon32" DefaultValue="~remoteUrl/RegExSample/images/RegExLogoDemo32.png"/>
+     <bt:Image id="icon64" DefaultValue="~remoteUrl/RegExSample/images/RegExLogoDemo64.png"/>
+     <bt:Image id="icon80" DefaultValue="~remoteUrl/RegExSample/images/RegExLogoDemo80.png"/>
+    </bt:Images>
+    <bt:Urls>
+     <bt:Url id="functionFile" DefaultValue="~remoteUrl/RegExSample/Functions/FunctionFile.html"/>
+     <bt:Url id="detectedEntityURL" DefaultValue="~remoteUrl/RegExSample/index.html"/>
+     <bt:Url id="Taskpane.Url" DefaultValue="~remoteUrl/RegExSample/MessageRead.html"/>
+    </bt:Urls>
+    <bt:ShortStrings>
+     <bt:String id="contextLabel" DefaultValue="Contoso"/>
+	 <bt:String id="GroupLabel" DefaultValue="RegEx Sample"/>
+     <bt:String id="TaskpaneButton.Label" DefaultValue="RegEx Sample"/>
+    </bt:ShortStrings>
+    <bt:LongStrings>
+    <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open TaskPane"/>
+    </bt:LongStrings>
+   </Resources>
+  </VersionOverrides>
+ </VersionOverrides>
+</OfficeApp>
+ 
