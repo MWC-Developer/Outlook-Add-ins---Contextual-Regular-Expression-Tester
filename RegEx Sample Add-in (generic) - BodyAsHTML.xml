@@ -4,7 +4,7 @@
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
  <Id>d538304a-57c3-4446-bfc1-a5bb6acc42f1</Id>
- <Version>1.0.0.3</Version>
+ <Version>1.0.0.5</Version>
  <ProviderName>Contoso</ProviderName>
  <DefaultLocale>en-US</DefaultLocale>
  <DisplayName DefaultValue="Contextual Add-in Sample (HTML)" />
@@ -51,9 +51,14 @@
        <Rule xsi:type="RuleCollection" Mode="And">
         <Rule xsi:type="ItemIs" ItemType="Message" />
         <Rule xsi:type="RuleCollection" Mode="Or">
-         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule1" RegExValue="\bS[2-3]\d{9}\b" PropertyName="BodyAsHTML"/>
-         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule2" RegExValue="\bB[A-Z]{3}\d{6}\b" PropertyName="BodyAsHTML"/>
-         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule3" RegExValue="\b([A-Z]\d{6}|[A-Z]\d{6}OFR|\d[A-Z]{2}\d{4}|\d[A-Z]{2}\d{4}OFR|[A-Z]{4}\d{5}|[A-Z]{3}\d{5}L|9[A-Z]\d{5}|9[A-Z]\d{5}OFR|DZ[A-Z]\d{6}|\d{6}Z|SD\d{7})\b" PropertyName="BodyAsHTML"/>
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule1" RegExValue="\bS[2-3]\d{9}\b" PropertyName="BodyAsPlaintext" Highlight="All"/>
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule2" RegExValue="\bB[A-Z]{3}\d{6}\b" PropertyName="BodyAsPlaintext" Highlight="All"/>
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule3" RegExValue="\b([A-Z]\d{6}|[A-Z]\d{6}OFR|\d[A-Z]{2}\d{4}|\d[A-Z]{2}\d{4}OFR|[A-Z]{4}\d{5}|[A-Z]{3}\d{5}L|9[A-Z]\d{5}|9[A-Z]\d{5}OFR|DZ[A-Z]\d{6}|\d{6}Z|SD\d{7})\b" PropertyName="BodyAsPlaintext" Highlight="All"/>
+        </Rule>
+        <Rule xsi:type="RuleCollection" Mode="Or">
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule1HTML" RegExValue="\bS[2-3]\d{9}\b" PropertyName="BodyAsHTML"/>
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule2HTML" RegExValue="\bB[A-Z]{3}\d{6}\b" PropertyName="BodyAsHTML"/>
+         <Rule xsi:type="ItemHasRegularExpressionMatch" RegExName="Rule3HTML" RegExValue="\b([A-Z]\d{6}|[A-Z]\d{6}OFR|\d[A-Z]{2}\d{4}|\d[A-Z]{2}\d{4}OFR|[A-Z]{4}\d{5}|[A-Z]{3}\d{5}L|9[A-Z]\d{5}|9[A-Z]\d{5}OFR|DZ[A-Z]\d{6}|\d{6}Z|SD\d{7})\b" PropertyName="BodyAsHTML"/>
         </Rule>
        </Rule>
       </ExtensionPoint>
